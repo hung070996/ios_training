@@ -1,0 +1,6 @@
+framework module Pods_RegisterMVVM {
+  umbrella header "Pods-RegisterMVVM-umbrella.h"
+
+  export *
+  module * { export * }
+}

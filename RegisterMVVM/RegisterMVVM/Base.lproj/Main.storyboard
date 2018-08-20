@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RegisterMVVM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T6B-B9-PDh">
+                                <rect key="frame" x="50" y="120" width="275" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZtU-Au-UrH">
+                                <rect key="frame" x="50" y="180" width="275" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="imb-qe-zoS">
+                                <rect key="frame" x="50" y="240" width="275" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nEU-Be-AdC">
+                                <rect key="frame" x="158.5" y="320" width="57" height="30"/>
+                                <state key="normal" title="Register"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="T6B-B9-PDh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="3gT-x9-Y25"/>
+                            <constraint firstItem="ZtU-Au-UrH" firstAttribute="height" secondItem="T6B-B9-PDh" secondAttribute="height" id="4iY-iT-LN5"/>
+                            <constraint firstItem="ZtU-Au-UrH" firstAttribute="width" secondItem="T6B-B9-PDh" secondAttribute="width" id="9wU-ZR-I7e"/>
+                            <constraint firstItem="T6B-B9-PDh" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Da4-wJ-2Sy"/>
+                            <constraint firstItem="imb-qe-zoS" firstAttribute="centerX" secondItem="ZtU-Au-UrH" secondAttribute="centerX" id="FBq-k8-Myr"/>
+                            <constraint firstItem="T6B-B9-PDh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="I5L-Ru-Rgq"/>
+                            <constraint firstItem="nEU-Be-AdC" firstAttribute="top" secondItem="imb-qe-zoS" secondAttribute="bottom" constant="50" id="QPy-5r-1TB"/>
+                            <constraint firstItem="nEU-Be-AdC" firstAttribute="centerX" secondItem="imb-qe-zoS" secondAttribute="centerX" id="SnO-Pk-20c"/>
+                            <constraint firstItem="imb-qe-zoS" firstAttribute="width" secondItem="ZtU-Au-UrH" secondAttribute="width" id="Z0A-ZV-SKo"/>
+                            <constraint firstItem="ZtU-Au-UrH" firstAttribute="top" secondItem="T6B-B9-PDh" secondAttribute="bottom" constant="30" id="Z3B-Mb-Npq"/>
+                            <constraint firstItem="imb-qe-zoS" firstAttribute="top" secondItem="ZtU-Au-UrH" secondAttribute="bottom" constant="30" id="hRn-f1-8g2"/>
+                            <constraint firstItem="imb-qe-zoS" firstAttribute="height" secondItem="ZtU-Au-UrH" secondAttribute="height" id="mbc-B4-avc"/>
+                            <constraint firstItem="ZtU-Au-UrH" firstAttribute="centerX" secondItem="T6B-B9-PDh" secondAttribute="centerX" id="t7J-sF-FzL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmTextfield" destination="imb-qe-zoS" id="zO8-1M-BZ8"/>
+                        <outlet property="passwordTextfield" destination="ZtU-Au-UrH" id="G02-Zr-05i"/>
+                        <outlet property="registerButton" destination="nEU-Be-AdC" id="fiO-B8-W22"/>
+                        <outlet property="usernameTextfield" destination="T6B-B9-PDh" id="yf9-Ec-Tzm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
