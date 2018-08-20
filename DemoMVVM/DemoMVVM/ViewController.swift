@@ -23,11 +23,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         _ = usernameTextfield.rx.text.map { $0 ?? "" }
-            .bind(to: registerViewModal.usernameText)
+            .bind(to: registerViewModal.register.username)
         _ = passwordTextfield.rx.text.map { $0 ?? "" }
-            .bind(to: registerViewModal.passwordText)
+            .bind(to: registerViewModal.register.password)
         _ = confirmTextfield.rx.text.map { $0 ?? "" }
-            .bind(to: registerViewModal.confirmText)
+            .bind(to: registerViewModal.register.confirm)
         _ = registerViewModal.isValid.subscribe(onNext: { [unowned self] isValid in
             self.setEnableButtonRegister(isEnable: isValid)
         })
