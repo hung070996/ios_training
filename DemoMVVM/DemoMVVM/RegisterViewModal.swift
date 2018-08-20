@@ -11,13 +11,11 @@ import RxSwift
 import RxCocoa
 
 struct RegisterViewModal {
-    var usernameText = Variable("")
-    var passwordText = Variable("")
-    var confirmText = Variable("")
+    var register = Register()
     
     var isValid: Observable<Bool> {
-        return Observable.combineLatest(passwordText.asObservable(), confirmText.asObservable()) { pass, confirm in
-            pass == confirm && !(pass.isEmpty || confirm.isEmpty || self.usernameText.value.isEmpty)
+        return Observable.combineLatest(register.password.asObservable(), register.confirm.asObservable()) { pass, confirm in
+            pass == confirm && !(pass.isEmpty || confirm.isEmpty || self.register.username.value.isEmpty)
         }
     }
 }
