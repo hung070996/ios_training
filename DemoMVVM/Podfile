@@ -10,4 +10,7 @@ pod 'RxSwift'
 pod 'RxCocoa'
 pod 'Alamofire'
 pod 'ObjectMapper'
+pod 'MBProgressHUD'
+pod 'MKProgress'
+pod 'NSObject+Rx'
 end
