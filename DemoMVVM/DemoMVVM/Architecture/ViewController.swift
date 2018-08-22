@@ -12,6 +12,8 @@ import RxSwift
 
 class ViewController: UIViewController {
     
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
 
