@@ -8,4 +8,6 @@ target 'DemoMVVM' do
   # Pods for DemoMVVM
 pod 'RxSwift'
 pod 'RxCocoa'
+pod 'Alamofire'
+pod 'ObjectMapper'
 end
