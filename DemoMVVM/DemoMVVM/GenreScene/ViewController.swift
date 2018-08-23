@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import NSObject_Rx
+import Reusable
 
 class ViewController: UIViewController, BindableType {
     
@@ -19,17 +20,13 @@ class ViewController: UIViewController, BindableType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configView()
-        bindViewModel()
     }
-    
-    func configView() {
-        viewModel = GenreViewModel(useCase: GenreUseCase())
-    }
+
     
     func bindViewModel() {
         let input = GenreViewModel.Input(
-            loadTrigger: Driver.just(())
+            loadTrigger: Driver.just(()),
+            selectTrackTrigger: tableView.rx.itemSelected.asDriver()
             )
         
         let output = viewModel.transform(input)
@@ -40,6 +37,9 @@ class ViewController: UIViewController, BindableType {
                 return cell
             }
             .disposed(by: rx.disposeBag)
+        output.selectedTrack
+            .drive()
+            .disposed(by: rx.disposeBag)
         output.error
             .drive(rx.error)
             .disposed(by: rx.disposeBag)
@@ -47,5 +47,9 @@ class ViewController: UIViewController, BindableType {
             .drive(rx.isLoading)
             .disposed(by: rx.disposeBag)
     }
+}
+
+extension ViewController: StoryboardSceneBased {
+    static var sceneStoryboard = Storyboards.main
 }
 

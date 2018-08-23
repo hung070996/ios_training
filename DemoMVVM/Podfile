@@ -13,4 +13,5 @@ pod 'ObjectMapper'
 pod 'MBProgressHUD'
 pod 'MKProgress'
 pod 'NSObject+Rx'
+pod 'Reusable'
 end
