@@ -14,28 +14,42 @@ struct GenreViewModel: ViewModelType {
     struct Input {
         let loadTrigger: Driver<Void>
         let selectTrackTrigger: Driver<IndexPath>
+        let reloadTrigger: Driver<Void>
+        let loadMoreTrigger: Driver<Void>
     }
     
     struct Output {
-        let trackList: Driver<[Track]>
+        let trackList: Driver<[TrackModel]>
         let error: Driver<Error>
         let indicator: Driver<Bool>
         let selectedTrack: Driver<Void>
+        let refreshing: Driver<Bool>
+        let loadingMore: Driver<Bool>
+        let fetchItems: Driver<Void>
     }
     
+    struct TrackModel {
+        let track: Track
+    }
+
     let useCase: GenreUseCaseType
     let navigator: MainNavigator
     
     func transform(_ input: GenreViewModel.Input) -> GenreViewModel.Output {
-        let errorTracker = ErrorTracker()
-        let activityIndicator = ActivityIndicator()
-        let trackList = input.loadTrigger
-            .flatMapLatest { _ in
-                return self.useCase.getListTrack()
-                    .trackError(errorTracker)
-                    .trackActivity(activityIndicator)
-                    .asDriverOnErrorJustComplete()
-        }
+        let loadMoreOutput = setupLoadMorePaging(
+            loadTrigger: input.loadTrigger,
+            getItems: useCase.getListTrack,
+            refreshTrigger: input.reloadTrigger,
+            refreshItems: useCase.getListTrack,
+            loadMoreTrigger: input.loadMoreTrigger,
+            loadMoreItems: useCase.loadMoreListTrack)
+        let (page, fetchItems, loadError, loading, refreshing, loadingMore) = loadMoreOutput
+        
+        let trackList = page
+            .map { $0.items
+                .map { TrackModel(track: $0) } }
+            .asDriverOnErrorJustComplete()
+        
         let selectedTrack = input.selectTrackTrigger
             .withLatestFrom(trackList) { indexPath, trackList in
                 return (indexPath, trackList)
@@ -44,16 +58,18 @@ struct GenreViewModel: ViewModelType {
                 return trackList[indexPath.row]
             }
             .do(onNext: { track in
-                self.navigator.toDetail(track: track)
+                self.navigator.toDetail(track: track.track)
             })
             .mapToVoid()
 
-        
         return Output(
             trackList: trackList,
-            error: errorTracker.asDriver(),
-            indicator: activityIndicator.asDriver(),
-            selectedTrack: selectedTrack
+            error: loadError,
+            indicator: loading,
+            selectedTrack: selectedTrack,
+            refreshing: refreshing,
+            loadingMore: loadingMore,
+            fetchItems: fetchItems
         )
     }
 }

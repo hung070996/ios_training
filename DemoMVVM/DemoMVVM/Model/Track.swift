@@ -8,6 +8,7 @@
 
 import Foundation
 import ObjectMapper
+import Then
 
 class Track: Mappable {
     var id = 0
@@ -82,3 +83,5 @@ class Track: Mappable {
     
     func getID() -> Int { return self.id }
 }
+
+extension Track: Then, HasID, Hashable { }
