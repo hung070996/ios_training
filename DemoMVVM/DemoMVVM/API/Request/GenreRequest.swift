@@ -46,6 +46,10 @@ class GenreRequest: BaseRequest {
         self.limit = limit
     }
     
+    func setLimit(limit: Int) {
+        self.limit = limit
+    }
+    
     func getParameter() -> Parameters {
         return [
             APIParameterKey.kind: kind,

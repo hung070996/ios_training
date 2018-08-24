@@ -11,13 +11,19 @@ import RxSwift
 import RxCocoa
 
 protocol GenreUseCaseType {
-    func getListTrack() -> Observable<[Track]>
+    func getListTrack() -> Observable<PagingInfo<Track>>
+    func loadMoreListTrack(page: Int) -> Observable<PagingInfo<Track>>
 }
 
 struct GenreUseCase: GenreUseCaseType {
-    func getListTrack() -> Observable<[Track]> {
-        let request = GenreRequest()
-        let repository = GenreRepositoryImp(api: APIManager.shared)
-        return repository.getGenre(input: request)
+    
+    let repository: GenreRepository
+    
+    func getListTrack() -> Observable<PagingInfo<Track>> {
+        return loadMoreListTrack(page: 1)
+    }
+    
+    func loadMoreListTrack(page: Int) -> Observable<PagingInfo<Track>> {
+        return repository.getGenre(input: GenreRequest(), page: page)
     }
 }

@@ -14,7 +14,7 @@ import Reusable
 
 class ViewController: UIViewController, BindableType {
     
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var tableView: RefreshTableView!
     
     var viewModel: GenreViewModel!
     
@@ -22,18 +22,19 @@ class ViewController: UIViewController, BindableType {
         super.viewDidLoad()
     }
 
-    
     func bindViewModel() {
         let input = GenreViewModel.Input(
             loadTrigger: Driver.just(()),
-            selectTrackTrigger: tableView.rx.itemSelected.asDriver()
+            selectTrackTrigger: tableView.rx.itemSelected.asDriver(),
+            reloadTrigger: tableView.loadMoreTopTrigger,
+            loadMoreTrigger: tableView.loadMoreBottomTrigger
             )
         
         let output = viewModel.transform(input)
         output.trackList
             .drive(tableView.rx.items) { tableView, index, element in
                 let cell: UITableViewCell = UITableViewCell(style: .default, reuseIdentifier: "1")
-                cell.textLabel?.text = element.title
+                cell.textLabel?.text = element.track.title
                 return cell
             }
             .disposed(by: rx.disposeBag)
@@ -45,6 +46,15 @@ class ViewController: UIViewController, BindableType {
             .disposed(by: rx.disposeBag)
         output.indicator
             .drive(rx.isLoading)
+            .disposed(by: rx.disposeBag)
+        output.refreshing
+            .drive(tableView.loadingMoreTop)
+            .disposed(by: rx.disposeBag)
+        output.loadingMore
+            .drive(tableView.loadingMoreBottom)
+            .disposed(by: rx.disposeBag)
+        output.fetchItems
+            .drive()
             .disposed(by: rx.disposeBag)
     }
 }

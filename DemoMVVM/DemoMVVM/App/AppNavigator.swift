@@ -21,7 +21,7 @@ struct AppNavigator: AppNavigatorType {
         let viewController = ViewController.instantiate()
         let navigationController = UINavigationController(rootViewController: viewController)
         let navigator = MainNavigator(navigationController: navigationController)
-        let useCase = GenreUseCase()
+        let useCase = GenreUseCase(repository: GenreRepositoryImp(api: APIManager.shared))
         let viewModel = GenreViewModel(useCase: useCase, navigator: navigator)
         viewController.bindViewModel(to: viewModel)
         window.rootViewController = navigationController
